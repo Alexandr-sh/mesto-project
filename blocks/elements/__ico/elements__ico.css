@@ -1,0 +1,19 @@
+.elements__ico {
+  margin-right: 5px;
+  margin-bottom: 6px;
+  min-width: 22px;
+  height: 19px;
+  background-image: url("../../../images/elements__ico.svg");
+  background-size: cover;
+  background-position: center;
+  fill: rgb(0,0,0);
+}
+
+.elements__ico:hover {
+  opacity: 0.5;
+}
+
+.elements__ico:active {
+  background-image: url("../../../images/elements__ico-active.svg");
+  opacity: 1;
+}
