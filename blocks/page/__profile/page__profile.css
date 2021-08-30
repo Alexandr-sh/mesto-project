@@ -2,7 +2,7 @@
     margin: 50px auto 0 auto;
 }
 
-@media all and (max-width: 680px) {
+@media all and (max-width: 1279px) {
     .page__profile {
         margin: 42px auto 0 auto;
     }

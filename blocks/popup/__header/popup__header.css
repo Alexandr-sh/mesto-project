@@ -8,7 +8,7 @@
   color: #000000;
 }
 
-@media all and (max-width: 680px) {
+@media all and (max-width: 1279px) {
   .popup__header {
     font-size: 18px;
     line-height: 22px;
