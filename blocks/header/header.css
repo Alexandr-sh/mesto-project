@@ -5,6 +5,8 @@
     box-sizing: border-box;
     min-height: 74px;
     border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+    background-image: url("../../../images/Logo.svg");
+    background-repeat: no-repeat;
 }
 
 @media all and (max-width: 1279px) {
