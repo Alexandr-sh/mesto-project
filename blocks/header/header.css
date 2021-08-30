@@ -1,5 +1,4 @@
 .header {
-    padding: 0 19px 0 19px;
     max-width: 880px;
     width: 100%;
     box-sizing: border-box;
@@ -11,6 +10,8 @@
 
 @media all and (max-width: 1279px) {
     .header {
+        background-position-x: 27px;
         min-height: 56px;
+        background-size: 103.74px 24.4px;
     }
 }
