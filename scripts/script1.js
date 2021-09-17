@@ -24,18 +24,21 @@ function closePopup() {
 }
 closeBtn.addEventListener('click',closePopup);
 
+//Выбор кнопки "сохранить"
+let saveBtn = document.querySelector('.popup__save-button');
+
 //Выбор элементов имя профиля и описание профиля
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 
-//Выбор кнопки "сохранить"
-let saveBtn = document.querySelector('.popup__save-button');
+//Выбор формы
+let form = document.querySelector('.popup__container');
 
 //Добавление реакции на нажатие кнопки сохранить
-function popup_save() {
+function popup_save(event) {
+    event.preventDefault();
     profileName.textContent = popup_name.value;
     profileDescription.textContent = popup_description.value;
     closePopup();
 }
-saveBtn.addEventListener('click',popup_save);
-
+form.addEventListener('submit',popup_save);
