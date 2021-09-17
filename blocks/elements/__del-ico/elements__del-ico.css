@@ -1,0 +1,18 @@
+.elements__del-ico {
+    margin: 0;
+    padding: 0;
+    position:absolute;
+    top: 20px;
+    right: 20px;
+    height: 19.3px;
+    width: 18px;
+    background-size: cover;
+    background-image: url("../../../images/Trash.svg");
+    border: none;
+    background-color: rgba(255,255,255,0);
+}
+
+.elements__del-ico:hover {
+    opacity: 0.6;
+  }
+  
