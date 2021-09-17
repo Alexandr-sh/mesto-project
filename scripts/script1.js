@@ -1,12 +1,12 @@
 //Выбор кнопки "редактирование"
-let editBtn = document.querySelector('.profile__edit-button');
+const editBtn = document.querySelector('.profile__edit-button');
 
 //Выбор popup окна
-let popup = document.querySelector('.popup');
+const popup = document.querySelector('.popup');
 
 //Выбор полей ввода
-let popup_name = document.querySelectorAll('.popup__text')[0];
-let popup_description = document.querySelectorAll('.popup__text')[1];
+const popup_name = document.querySelectorAll('.popup__text')[0];
+const popup_description = document.querySelectorAll('.popup__text')[1];
 
 //Добавление реакции на нажатие кнопки "редактирование"
 editBtn.addEventListener('click',function(){
@@ -16,7 +16,7 @@ editBtn.addEventListener('click',function(){
 });
 
 //Выбор кнопки "закрытие"
-let closeBtn = document.querySelector('.popup__close-button');
+const closeBtn = document.querySelector('.popup__close-button');
 
 //Добавление реакции на нажатие кнопки "закрытие"
 function closePopup() {
@@ -25,14 +25,14 @@ function closePopup() {
 closeBtn.addEventListener('click',closePopup);
 
 //Выбор кнопки "сохранить"
-let saveBtn = document.querySelector('.popup__save-button');
+const saveBtn = document.querySelector('.popup__save-button');
 
 //Выбор элементов имя профиля и описание профиля
-let profileName = document.querySelector('.profile__name');
-let profileDescription = document.querySelector('.profile__description');
+const profileName = document.querySelector('.profile__name');
+const profileDescription = document.querySelector('.profile__description');
 
 //Выбор формы
-let form = document.querySelector('.popup__container');
+const form = document.querySelector('.popup__container');
 
 //Добавление реакции на нажатие кнопки сохранить
 function popup_save(event) {
