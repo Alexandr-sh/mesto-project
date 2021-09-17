@@ -26,48 +26,6 @@
         </section>
 
         <section class="elements page__elements">
-            <figure class="elements__element">
-                <div class="elements__image elements__image_place_karachaevsk"></div>
-                <figcaption class="elements__caption">
-                    <p class="elements__title">Карачаевск</p>
-                    <button type="button" class="elements__ico"></button>
-                </figcaption>
-            </figure>
-            <figure class="elements__element">
-                <div class="elements__image elements__image_place_elbrus"></div>
-                <figcaption class="elements__caption">
-                    <p class="elements__title">Гора Ельбрус</p>
-                    <button type="button" class="elements__ico"></button>
-                </figcaption>
-            </figure>
-            <figure class="elements__element">
-                <div class="elements__image elements__image_place_dombay"></div>
-                <figcaption class="elements__caption">
-                    <p class="elements__title">Домбай</p>
-                    <button type="button" class="elements__ico"></button>
-                </figcaption>
-            </figure>
-            <figure class="elements__element">
-                <div class="elements__image elements__image_place_elbrus"></div>
-                <figcaption class="elements__caption">
-                    <p class="elements__title">Гора Ельбрус</p>
-                    <button type="button" class="elements__ico"></button>
-                </figcaption>
-            </figure>
-            <figure class="elements__element">
-                <div class="elements__image elements__image_place_dombay"></div>
-                <figcaption class="elements__caption">
-                    <p class="elements__title">Домбай</p>
-                    <button type="button" class="elements__ico"></button>
-                </figcaption>
-            </figure>
-            <figure class="elements__element">
-                <div class="elements__image elements__image_place_karachaevsk"></div>
-                <figcaption class="elements__caption">
-                    <p class="elements__title">Карачаево-Черкесия</p>
-                    <button type="button" class="elements__ico"></button>
-                </figcaption>
-            </figure>
         </section>
     </main>
 
@@ -84,7 +42,18 @@
             <button type="button" class="popup__close-button"></button>
         </form>
     </section>
-    <script src="scripts/script1.js"></script>
+
+    <template id="place-card">
+        <figure class="elements__element">
+            <div class="elements__image elements__image_place_karachaevsk"></div>
+            <figcaption class="elements__caption">
+                <p class="elements__title">Карачаевск</p>
+                <button type="button" class="elements__ico"></button>
+            </figcaption>
+        </figure>
+    </template>
+
+    <script src="scripts/script.js"></script>
 </body>
 
 </html>
