@@ -1,3 +1,4 @@
+//Работа формы "Редактировать профиль"
 //Выбор кнопки "редактирование"
 const editBtn = document.querySelector('.profile__edit-button');
 
@@ -5,14 +6,14 @@ const editBtn = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 
 //Выбор полей ввода
-const popup_name = document.querySelectorAll('.popup__text')[0];
-const popup_description = document.querySelectorAll('.popup__text')[1];
+const popupName = document.querySelectorAll('.popup__text')[0];
+const popupDescription = document.querySelectorAll('.popup__text')[1];
 
 //Добавление реакции на нажатие кнопки "редактирование"
-editBtn.addEventListener('click',function(){
-    popup.classList.add('popup_opened');
-    popup_name.value='Жак-Ив Кусто';
-    popup_description.value='Исследователь океана';
+editBtn.addEventListener('click', function () {
+  popup.classList.add('popup_opened');
+  popupName.value = 'Жак-Ив Кусто';
+  popupDescription.value = 'Исследователь океана';
 });
 
 //Выбор кнопки "закрытие"
@@ -20,9 +21,12 @@ const closeBtn = document.querySelector('.popup__close-button');
 
 //Добавление реакции на нажатие кнопки "закрытие"
 function closePopup() {
-    popup.classList.remove('popup_opened');
+  const popups = document.querySelectorAll('.popup');
+  popups.forEach(function (item) {
+    item.classList.remove('popup_opened');
+  })
 }
-closeBtn.addEventListener('click',closePopup);
+closeBtn.addEventListener('click', closePopup);
 
 //Выбор кнопки "сохранить"
 const saveBtn = document.querySelector('.popup__save-button');
@@ -35,56 +39,104 @@ const profileDescription = document.querySelector('.profile__description');
 const form = document.querySelector('.popup__container');
 
 //Добавление реакции на нажатие кнопки сохранить
-function popup_save(event) {
-    event.preventDefault();
-    profileName.textContent = popup_name.value;
-    profileDescription.textContent = popup_description.value;
-    closePopup();
+function popupSave(event) {
+  event.preventDefault();
+  profileName.textContent = popupName.value;
+  profileDescription.textContent = popupDescription.value;
+  closePopup();
 }
-form.addEventListener('submit',popup_save);
+form.addEventListener('submit', popupSave);
+
+
+
 
 //Добавление начальных карточек на страницу
 const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
 //Получение секции с карточками мест
 const places = document.querySelector('.elements');
 
-//Получение template элемента карточки
-const cardTemplate = document.querySelector('#place-card').content;
+//Создание новой карточки
+function createPlaceCard() {
+  const cardTemplate = document.querySelector('#place-card').content;
+  const card = cardTemplate.querySelector('.elements__element').cloneNode(true);
+
+  //Добавление реакции на нажатие кнопки лайк
+  const likeBtn = card.querySelector('.elements__ico');
+  likeBtn.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__ico_active');
+  })
+
+  return card;
+}
 
 //Заполняем секцию карточками
-initialCards.forEach (function(item){
-    console.log('1');
-    // клонируем содержимое тега template
-    let card = cardTemplate.querySelector('.elements__element').cloneNode(true);
-    card.querySelector('.elements__image').style.backgroundImage = `url(${item.link})`;
-    card.querySelector('.elements__title').textContent = item.name;
-    places.append(card);
+initialCards.forEach(function (item) {
+  let card = createPlaceCard();
+  card.querySelector('.elements__image').style.backgroundImage = `url(${item.link})`;
+  card.querySelector('.elements__title').textContent = item.name;
+  places.append(card);
 })
 
 
+//Работа формы "Новое место"
+//выбор кнопки "добавить место"
+const addPlaceBtn = document.querySelector('.profile__add-button');
+
+//Выбор формы "Новое место"
+const newPlaceForm = document.querySelectorAll('.popup')[1];
+
+//Выбор полей ввода
+const newPlaceFormName = newPlaceForm.querySelectorAll('.popup__text')[0];
+const newPlaceFormDescription = newPlaceForm.querySelectorAll('.popup__text')[1];
+
+//Добавление реакции на нажатие кнопки "редактирование"
+addPlaceBtn.addEventListener('click', function () {
+  newPlaceForm.classList.add('popup_opened');
+});
+
+//Выбор кнопки "закрытие формы "новое место""
+const newPlaceFormСloseBtn = newPlaceForm.querySelector('.popup__close-button');
+
+//Добавление реакции на нажатие кнопки "закрытие"
+newPlaceFormСloseBtn.addEventListener('click', closePopup);
+
+//Добавление реакции на нажатие кнопки сохранить
+function newPlaceFormSave(event) {
+  event.preventDefault();
+  const card = createPlaceCard();
+  const name = newPlaceForm.querySelectorAll('.popup__text')[0];
+  const link = newPlaceForm.querySelectorAll('.popup__text')[1]
+  card.querySelector('.elements__image').style.backgroundImage = `url("${link.value}")`;
+  card.querySelector('.elements__title').textContent = `${name.value}`;
+  name.value = '';
+  link.value = '';
+  places.prepend(card);
+  closePopup();
+}
+newPlaceForm.addEventListener('submit', newPlaceFormSave);

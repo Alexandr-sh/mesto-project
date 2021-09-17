@@ -43,6 +43,16 @@
         </form>
     </section>
 
+    <section class="popup">
+        <form class="popup__container" name="add-card">
+            <h2 class="popup__header">Новое место</h2>
+            <input type="text" name="card-name" required class="popup__text" placeholder="Название">
+            <input type="text" name="card-link" required class="popup__text" placeholder="Ссылка на картинку">
+            <input type="submit" name="save" value="Сохранить" class="popup__save-button">
+            <button type="button" class="popup__close-button"></button>
+        </form>
+    </section>
+
     <template id="place-card">
         <figure class="elements__element">
             <div class="elements__image elements__image_place_karachaevsk"></div>
