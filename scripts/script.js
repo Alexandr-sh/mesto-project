@@ -3,8 +3,14 @@ let editBtn = document.querySelector('.profile__edit-button');
 //Выбор popup окна
 let popup = document.querySelector('.popup');
 
-//Реакция на нажатие кнопки "редактирование"
+//Добавление реакции на нажатие кнопки "редактирование"
 editBtn.addEventListener('click',function(){
-    console.log(editBtn.classList);
     popup.classList.add('popup_opened');
-})
+});
+
+//Выбор кнопки "закрытие"
+let closeBtn = document.querySelector('.popup__close-button');
+//Добавление реакции на нажатие кнопки "закрытие"
+closeBtn.addEventListener('click',function(){
+    popup.classList.remove('popup_opened');
+});
