@@ -11,6 +11,7 @@ editBtn.addEventListener('click',function(){
 //Выбор кнопки "закрытие"
 let closeBtn = document.querySelector('.popup__close-button');
 //Добавление реакции на нажатие кнопки "закрытие"
-closeBtn.addEventListener('click',function(){
+function closePopup() {
     popup.classList.remove('popup_opened');
-});
+}
+closeBtn.addEventListener('click',closePopup);
