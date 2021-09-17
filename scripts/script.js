@@ -92,6 +92,12 @@ function createPlaceCard() {
     evt.target.classList.toggle('elements__ico_active');
   })
 
+  //Добавление реакции на нажатие кнопки удалить
+  const delBtn = card.querySelector('.elements__del-ico');
+  delBtn.addEventListener('click', function(evt){
+    evt.target.closest('.elements__element').remove();
+  })
+
   return card;
 }
 
