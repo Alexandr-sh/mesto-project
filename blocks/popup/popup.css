@@ -1,10 +1,13 @@
 .popup {
   width: 100vw;
   height: 100vh;
-  display: none;
+  display: flex;
+  visibility: hidden;
   justify-content: center;
   align-items: center;
   position: fixed;
+  opacity: 0;
+  transition: opacity 0.3s linear, visibility 0.3s;
 }
 
 .popup::after {
