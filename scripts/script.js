@@ -111,7 +111,7 @@ function createPlaceCard(name, link) {
   })
 
   //Добавление реакции на нажатие на карточку
-  card.addEventListener('click',function(evt){
+  card.querySelector('.elements__image').addEventListener('click',function(evt){
     imgPopup.classList.add('popup_opened');
     imgPopup.querySelector('.popup__image').src = card.link;
     imgPopup.querySelector('.popup__caption').textContent = card.name;
