@@ -114,6 +114,7 @@ function createPlaceCard(name, link) {
   card.addEventListener('click',function(evt){
     imgPopup.classList.add('popup_opened');
     imgPopup.querySelector('.popup__image').src = card.link;
+    imgPopup.querySelector('.popup__caption').textContent = card.name;
   })
 
   return card;
