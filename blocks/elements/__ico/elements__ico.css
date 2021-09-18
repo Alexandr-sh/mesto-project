@@ -9,6 +9,7 @@
   fill: rgb(0,0,0);
   background-color: rgb(255,255,255);
   border: none;
+  cursor: pointer;
 }
 
 .elements__ico:hover {

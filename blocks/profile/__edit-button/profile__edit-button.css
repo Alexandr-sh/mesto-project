@@ -10,6 +10,7 @@
     border: 1px solid rgb(255,255,255);
     background-color: #000;
     align-self: end;
+    cursor: pointer;
 }
 
 .profile__edit-button:hover {

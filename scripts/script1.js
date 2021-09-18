@@ -22,7 +22,7 @@ const closeBtn = document.querySelector('.popup__close-button');
 //Добавление реакции на нажатие кнопки "закрытие"
 function closePopup() {
   const popups = document.querySelectorAll('.popup');
-  popups.forEach(function(item){
+  popups.forEach(function (item) {
     item.classList.remove('popup_opened');
   })
 }
@@ -81,13 +81,36 @@ const initialCards = [
 //Получение секции с карточками мест
 const places = document.querySelector('.elements');
 
-//
-const cardTemplate = document.querySelector('#place-card').content;
+//Создание новой карточки
+function createPlaceCard() {
+  const cardTemplate = document.querySelector('#place-card').content;
+  const card = cardTemplate.querySelector('.elements__element').cloneNode(true);
+
+  //Добавление реакции на нажатие кнопки лайк
+  const likeBtn = card.querySelector('.elements__ico');
+  likeBtn.addEventListener('click', function (evt) {
+    evt.target.classList.toggle('elements__ico_active');
+  })
+
+  //Добавление реакции на нажатие кнопки удалить
+  const delBtn = card.querySelector('.elements__del-ico');
+  delBtn.addEventListener('click', function(evt){
+    evt.target.closest('.elements__element').remove();
+  })
+
+  //Добавление реакции на нажатие на карточку
+  card.addEventListener('click',function(evt){
+    const imgPopup = document.querySelectorAll('.popup')[2];
+    imgPopup.classList.add('popup_opened');
+    imgPopup.querySelector('.popup__image').src = 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg';
+  })
+
+  return card;
+}
 
 //Заполняем секцию карточками
 initialCards.forEach(function (item) {
-  // клонируем содержимое тега template
-  let card = cardTemplate.querySelector('.elements__element').cloneNode(true);
+  let card = createPlaceCard();
   card.querySelector('.elements__image').style.backgroundImage = `url(${item.link})`;
   card.querySelector('.elements__title').textContent = item.name;
   places.append(card);
@@ -119,9 +142,18 @@ newPlaceFormСloseBtn.addEventListener('click', closePopup);
 //Добавление реакции на нажатие кнопки сохранить
 function newPlaceFormSave(event) {
   event.preventDefault();
-  
-  profileName.textContent = popupName.value;
-  profileDescription.textContent = popupDescription.value;
+  const card = createPlaceCard();
+  const name = newPlaceForm.querySelectorAll('.popup__text')[0];
+  const link = newPlaceForm.querySelectorAll('.popup__text')[1]
+  card.querySelector('.elements__image').style.backgroundImage = `url("${link.value}")`;
+  card.querySelector('.elements__title').textContent = `${name.value}`;
+  name.value = '';
+  link.value = '';
+  places.prepend(card);
   closePopup();
 }
-newPlaceForm.addEventListener('submit', popupSave);
+newPlaceForm.addEventListener('submit', newPlaceFormSave);
+
+
+//Открытие попапа с картинкой
+

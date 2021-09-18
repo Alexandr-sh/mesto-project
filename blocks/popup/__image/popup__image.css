@@ -1,0 +1,13 @@
+.popup__image{
+    padding: 0;
+    position: relative;
+    box-sizing:content-box;
+    width: 100vw;
+    max-width: 75vw;
+    max-height: 75vh;
+    object-fit:cover;
+    /*background-image: url("https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:contain;*/
+}

@@ -81,10 +81,22 @@ const initialCards = [
 //Получение секции с карточками мест
 const places = document.querySelector('.elements');
 
+//Работа попапа с картинкой
+//Получение попапа с картинкой
+const imgPopup = document.querySelectorAll('.popup')[2];
+//Добавление реакции на нажатие кнопки закрыть
+imgPopup.querySelector('.popup__close-button').addEventListener('click',closePopup);
+
 //Создание новой карточки
-function createPlaceCard() {
+function createPlaceCard(name, link) {
   const cardTemplate = document.querySelector('#place-card').content;
   const card = cardTemplate.querySelector('.elements__element').cloneNode(true);
+
+  card.name = name;
+  card.link = link;
+
+  card.querySelector('.elements__image').style.backgroundImage = `url(${card.link})`;
+  card.querySelector('.elements__title').textContent = card.name;
 
   //Добавление реакции на нажатие кнопки лайк
   const likeBtn = card.querySelector('.elements__ico');
@@ -98,14 +110,18 @@ function createPlaceCard() {
     evt.target.closest('.elements__element').remove();
   })
 
+  //Добавление реакции на нажатие на карточку
+  card.addEventListener('click',function(evt){
+    imgPopup.classList.add('popup_opened');
+    imgPopup.querySelector('.popup__image').src = card.link;
+  })
+
   return card;
 }
 
 //Заполняем секцию карточками
 initialCards.forEach(function (item) {
-  let card = createPlaceCard();
-  card.querySelector('.elements__image').style.backgroundImage = `url(${item.link})`;
-  card.querySelector('.elements__title').textContent = item.name;
+  let card = createPlaceCard(item.name,item.link);
   places.append(card);
 })
 
@@ -146,3 +162,5 @@ function newPlaceFormSave(event) {
   closePopup();
 }
 newPlaceForm.addEventListener('submit', newPlaceFormSave);
+
+
