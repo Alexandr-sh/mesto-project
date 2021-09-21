@@ -12,9 +12,7 @@ const addCardCloseButton = addCardPopup.querySelector('.popup__close-button');
 const editProfileCloseButton = editProfilePopup.querySelector('.popup__close-button');
 const imgPopupCloseButton = imgPopup.querySelector('.popup__close-button');
 
-addCardCloseButton.addEventListener('click',function() {
-  closePopup(addCardPopup);
-});
+addCardCloseButton.addEventListener('click',() => closePopup(addCardPopup));
 
 editProfileCloseButton.addEventListener('click',function() {
   closePopup(editProfilePopup);
@@ -39,8 +37,8 @@ function closePopup(popup) {
 //Добавление реакции на нажатие кнопки "редактирование"
 editBtn.addEventListener('click', function () {
   openPopup(editProfilePopup);
-  popupProfileName.value = 'Жак-Ив Кусто';
-  popupProfileDescription.value = 'Исследователь океана';
+  popupProfileName.value = profileName.textContent;
+  popupProfileDescription.value = profileDescription.textContent;
 });
 
 //Выбор кнопки "сохранить"
@@ -68,12 +66,12 @@ profileForm.addEventListener('submit', savePopupProfile);
 const places = document.querySelector('.elements');
 
 //Создание новой карточки
-function createPlaceCard(name, link) {
+function createPlaceCard(cardData) {
   const cardTemplate = document.querySelector('#place-card').content;
   const card = cardTemplate.querySelector('.elements__element').cloneNode(true);
 
-  card.name = name;
-  card.link = link;
+  card.name = cardData.name;
+  card.link = cardData.link;
 
   card.querySelector('.elements__image').style.backgroundImage = `url(${card.link})`;
   card.querySelector('.elements__title').textContent = card.name;
@@ -105,7 +103,7 @@ function createPlaceCard(name, link) {
 
 //Заполняем секцию карточками
 initialCards.forEach(function (item) {
-  let card = createPlaceCard(item.name,item.link);
+  const card = createPlaceCard(item);
   places.append(card);
 })
 
@@ -127,13 +125,16 @@ addPlaceBtn.addEventListener('click', function () {
 //Добавление реакции на нажатие кнопки сохранить
 function saveNewPlaceForm(event) {
   event.preventDefault();
-  placeForm.reset();
-  const card = createPlaceCard();
-  const name = placeForm.querySelectorAll('.popup__text')[0];
-  const link = placeForm.querySelectorAll('.popup__text')[1]
-  card.querySelector('.elements__image').style.backgroundImage = `url("${link.value}")`;
-  card.querySelector('.elements__title').textContent = `${name.value}`;
+  const name = placeForm.querySelector('.popup__text_type_card-name');
+  const link = placeForm.querySelector('.popup__text_type_card-link');
+  const cardData = {};
+  cardData.name = name.value;
+  cardData.link = link.value;
+  const card = createPlaceCard(cardData);
+  card.querySelector('.elements__image').style.backgroundImage = `url("${cardData.link}")`;
+  card.querySelector('.elements__title').textContent = `${cardData.name}`;
   places.prepend(card);
+  placeForm.reset();
   closePopup(addCardPopup);
 }
 placeForm.addEventListener('submit', saveNewPlaceForm);

@@ -50,4 +50,6 @@
 @import url("../blocks/popup/__profile-description/popup__profile-description.css");
 @import url("../blocks/popup/__place-name/popup__place-name.css");
 @import url("../blocks/popup/__place-link/popup__place-link.css");
+@import url("../blocks/popup/__text/_type/popup__text_type_card-link.css");
+@import url("../blocks/popup/__text/_type/popup__text_type_card-name.css");
 
