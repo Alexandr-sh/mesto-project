@@ -52,4 +52,10 @@
 @import url("../blocks/popup/__place-link/popup__place-link.css");
 @import url("../blocks/popup/__text/_type/popup__text_type_card-link.css");
 @import url("../blocks/popup/__text/_type/popup__text_type_card-name.css");
+@import url("../blocks/popup/__text/_type/popup__text_type_error.css");
+@import url("../blocks/popup/__error/popup__error.css");
+@import url("../blocks/popup/__error/_type/popup__error_type_description-input.css");
+@import url("../blocks/popup/__error/_type/popup__error_type_link-input.css");
+@import url("../blocks/popup/__error/_type/popup__error_type_name-input.css");
+@import url("../blocks/popup/__error/_type/popup__error_type_title-input.css");
 

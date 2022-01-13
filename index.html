@@ -34,20 +34,24 @@
     </footer>
 
     <section class="popup popup_type_edit-profile">
-        <form class="popup__container" name="edit-profile-form">
+        <form class="popup__container" name="edit-profile-form" novalidate>
             <h2 class="popup__header">Редактировать профиль</h2>
-            <input type="text" name="name" required class="popup__text popup__profile-name" placeholder="Жак-Ив Кусто">
-            <input type="text" name="description" required class="popup__text popup__profile-description" placeholder="Исследователь океана">
+            <input minlength="2" maxlength="40" id="name-input" type="text" name="name" required class="popup__text popup__profile-name" placeholder="Жак-Ив Кусто">
+            <span class="popup__error popup__error_type_name-input">Необходимо заполнить данное поле.</span>
+            <input id="description-input" minlength="2" maxlength="200" type="text" name="description" required class="popup__text popup__profile-description" placeholder="Исследователь океана">
+            <span class="popup__error popup__error_type_description-input">Необходимо заполнить данное поле.</span>
             <input type="submit" name="save" value="Сохранить" class="popup__save-button">
             <button type="button" class="popup__close-button"></button>
         </form>
     </section>
 
     <section class="popup popup_type_add-card">
-        <form class="popup__container" name="add-card">
+        <form class="popup__container" name="add-card" novalidate>
             <h2 class="popup__header">Новое место</h2>
-            <input type="text" name="card-name" required class="popup__text popup__text_type_card-name" placeholder="Название">
-            <input type="text" name="card-link" required class="popup__text popup__text_type_card-link" placeholder="Ссылка на картинку">
+            <input minlength="2" maxlength="40" id="title-input" type="text" name="card-name" required class="popup__text popup__text_type_card-name" placeholder="Название" required>
+            <span class="popup__error popup__error_type_title-input">Необходимо заполнить данное поле.</span>
+            <input id="link-input" type="url" name="card-link" required class="popup__text popup__text_type_card-link" placeholder="Ссылка на картинку" required>
+            <span class="popup__error popup__error_type_link-input">Введите адрес сайта.</span>
             <input type="submit" name="save" value="Сохранить" class="popup__save-button">
             <button type="button" class="popup__close-button"></button>
         </form>
