@@ -1,3 +1,8 @@
+
+
+import './index.css';
+
+
 import { enableValidation } from './components/validate.js';
 import {initialCards} from './initial-cards.js';
 import { createPlaceCard } from './components/card.js';
