@@ -1,0 +1,26 @@
+{
+  "name": "mesto-project",
+  "version": "1.0.0",
+  "description": "Проект Место. Проект создан для отработки навыков работы с java script.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Alexandr-sh/mesto-project.git"
+  },
+  "author": "\"Alexandr Shevelev\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alexandr-sh/mesto-project/issues"
+  },
+  "homepage": "https://github.com/Alexandr-sh/mesto-project#readme",
+  "dependencies": {
+    "jquery": "^3.6.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1"
+  }
+}
