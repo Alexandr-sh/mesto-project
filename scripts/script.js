@@ -218,6 +218,9 @@ document.addEventListener('keydown', function (evt) {
 });
 
 document.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('popup')){
+    closeAllPopup();
+  }
 });
 
 
