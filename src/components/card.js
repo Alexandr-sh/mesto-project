@@ -1,3 +1,6 @@
+import {openPopup} from './modal.js'
+import { imgPopup } from './index.js';
+
 //Создание новой карточки
 export function createPlaceCard(cardData) {
     const cardTemplate = document.querySelector('#place-card').content;

@@ -12,4 +12,9 @@ export const setEventListeners = (formElement, settings) => {
         toggleButtonState(inputList, buttonElement, settings);
       });
     });
+
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      toggleButtonState(inputList, buttonElement, settings);
+    })
   }; 

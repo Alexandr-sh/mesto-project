@@ -1,9 +1,8 @@
 import { setEventListeners } from "./utils.js";
+import {forms} from "./index.js";
 
 export const enableValidation = (settings) => {
-    const formList = Array.from(document.querySelectorAll(settings.formSelector));
-  
-    formList.forEach((formElement) => {
+    forms.forEach((formElement) => {
       formElement.addEventListener('submit', (evt) => {
         evt.preventDefault();
       });
