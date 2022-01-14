@@ -1,14 +1,14 @@
 
 
-import './index.css';
+import '../index.css';
 
 
-import { enableValidation } from './components/validate.js';
+import { enableValidation } from './validate.js';
 import {initialCards} from './initial-cards.js';
-import { createPlaceCard } from './components/card.js';
-import { closePopup } from './components/modal.js';
-import { openPopup } from './components/modal.js';
-import { closeAllPopup } from './components/modal.js';
+import { createPlaceCard } from './card.js';
+import { closePopup } from './modal.js';
+import { openPopup } from './modal.js';
+import { closeAllPopup } from './modal.js';
 
 //Работа формы "Редактировать профиль"
 //Выбор кнопки "редактирование"
