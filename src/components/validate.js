@@ -1,5 +1,3 @@
-import { setEventListeners } from "./utils.js";
-
 export const enableValidation = (settings) => {
     const formList = Array.from(document.querySelectorAll(settings.formSelector));
   
@@ -48,4 +46,17 @@ export const toggleButtonState = (inputList, buttonElement, settings) => {
       buttonElement.classList.remove(settings.inactiveButtonClass);
       buttonElement.removeAttribute("disabled");
     }
+  }; 
+
+  export const setEventListeners = (formElement, settings) => {
+    const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+    toggleButtonState(inputList, buttonElement, settings);
+  
+    inputList.forEach((inputElement) => {
+      inputElement.addEventListener('input', () => {
+        isValid(formElement, inputElement, settings);
+        toggleButtonState(inputList, buttonElement, settings);
+      });
+    });
   }; 
