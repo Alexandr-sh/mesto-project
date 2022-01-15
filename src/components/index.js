@@ -10,13 +10,18 @@ import { openPopup } from './modal.js';
 import { loadUserInfo } from './api.js';
 import { loadCardsData } from './api.js';
 import { sendUserInfo } from './api.js';
-import { requestNewCard } from './api.js';
+import { requestNewCard, requestUpdateAvatar } from './api.js';
 
 //Имя пользователя
 export let userName = '';
 
 //Выбор кнопки "редактирование"
 const editBtn = document.querySelector('.profile__edit-button');
+
+//Выбор popup обновить аватар
+const updateAvatarPopup = document.querySelector('.popup_type_update-avatar');
+const updateAvatarForm = updateAvatarPopup.querySelector('.popup__container');
+const updateAvatarSaveBtn = updateAvatarPopup.querySelector('.popup__save-button');
 
 //Выбор popup окон
 const addCardPopup = document.querySelector('.popup_type_add-card');
@@ -25,8 +30,9 @@ const addCardForm = addCardPopup.querySelector('.popup__container');/*addCardPop
 const addCardSaveBtn = addCardPopup.querySelector('.popup__save-button');
 
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
+const editProfileSaveBtn = editProfilePopup.querySelector('.popup__save-button');
 export const imgPopup = document.querySelector('.popup_type_img');
-const popups = [addCardPopup, editProfilePopup, imgPopup];
+const popups = [addCardPopup, editProfilePopup, imgPopup, updateAvatarPopup];
 
 const name = addCardPopup.querySelector('.popup__text_type_card-name');
 const link = addCardPopup.querySelector('.popup__text_type_card-link');
@@ -43,14 +49,52 @@ editBtn.addEventListener('click', function () {
   popupProfileDescription.value = profileDescription.textContent;
 });
 
+
 //Выбор элементов имя профиля и описание профиля 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const avatar = document.querySelector('.profile__avatar');
+const avatarOverlay = document.querySelector('.profile__avatar-overlay');
+
+
+
+//Добавление реакции на нажатие на аватар
+avatarOverlay.addEventListener('click', () => {
+  openPopup(updateAvatarPopup);
+})
+
+//Обновление аватара
+updateAvatarPopup.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  toggleSaveBtnCaption('Сохранение...');
+  requestUpdateAvatar(updateAvatarPopup.querySelector('.popup__text_type_avatar-link').value)
+  .then(res => {
+    if (res.ok){
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then(data => {
+    avatar.style.backgroundImage = `url(${data.avatar})`;
+    closePopup(updateAvatarPopup);
+    toggleSaveBtnCaption('Сохранить');
+  }).catch(err => {
+    console.log(err);
+  })
+  updateAvatarForm.reset();
+  updateAvatarSaveBtn.setAttribute('disabled', 'disabled');
+  updateAvatarSaveBtn.classList.add('popup__save-button_disabled');
+})
 
 
 editProfilePopup.addEventListener('submit', savePopupProfile);
 
+//Добавление реакции при наведении курсора на аватар
+avatar.addEventListener('mouseover', () => {
+  avatarOverlay.style.display = 'block';
+})
+avatar.addEventListener('mouseout', () => {
+  avatarOverlay.style.display = 'none';
+})
 
 //Получение секции с карточками мест
 export const places = document.querySelector('.elements');
@@ -67,8 +111,8 @@ function savePopupProfile(event) {
   event.preventDefault();
   profileName.textContent = popupProfileName.value;
   profileDescription.textContent = popupProfileDescription.value;
+  toggleSaveBtnCaption("Сохранение...");
   sendUserData({name:popupProfileName.value,about:popupProfileDescription.value})
-  closePopup(editProfilePopup);
 }
 
 //Работа формы "Новое место"
@@ -91,6 +135,7 @@ function saveNewPlaceForm(event) {
   cardData.owner = {};
   cardData.owner.name = userName;
   
+  toggleSaveBtnCaption('Сохранение...');
   requestNewCard(cardData).then(res => {
     if (res.ok) {
       return res.json();
@@ -99,6 +144,7 @@ function saveNewPlaceForm(event) {
   }).then(data => {
     cardData._id = data._id;
     createPlaceCard(cardData);
+    toggleSaveBtnCaption('Сохранить');
   })
   .catch(err => {
     console.log(err);
@@ -175,10 +221,18 @@ loadCardsData().then(res => {
 function sendUserData(data){
   sendUserInfo(data).then(res => {
     if (res.ok) {
-      return res.json();
+      closePopup(editProfilePopup);
+      toggleSaveBtnCaption("Сохранить");
+      return;
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   }).catch(err => {
     console.log(err);
+  })
+}
+
+function toggleSaveBtnCaption(caption){
+  document.querySelectorAll('.popup__save-button').forEach(btn => {
+    btn.value = caption;
   })
 }

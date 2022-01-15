@@ -15,7 +15,9 @@
 
     <main>
         <section class="profile page__profile">
-            <div class="profile__avatar"></div>
+            <div class="profile__avatar">
+                <div class="profile__avatar-overlay"></div>
+            </div>
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="profile__edit-button" type="button"></button>
@@ -63,6 +65,16 @@
             <button type="button" class="popup__close-button"></button>
             <figcaption class="popup__caption">Байкал</figcaption>
         </figure>
+    </section>
+
+    <section class="popup popup_type_update-avatar">
+        <form class="popup__container" name="update-avatar" novalidate>
+            <h2 class="popup__header">Обновить аватар</h2>
+            <input id="update-avatar-input" type="url" name="card-link" required class="popup__text popup__text_type_avatar-link" placeholder="Ссылка на картинку" required>
+            <span class="popup__error popup__error_type_update-avatar-input"></span>
+            <input type="submit" name="save" value="Сохранить" class="popup__save-button">
+            <button type="button" class="popup__close-button"></button>
+        </form>
     </section>
 
     <template id="place-card">
