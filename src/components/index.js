@@ -1,3 +1,5 @@
+
+
 import '../index.css';
 
 
@@ -8,41 +10,19 @@ import { closePopup } from './modal.js';
 import { openPopup } from './modal.js';
 import { closeAllPopup } from './modal.js';
 
-
+//Работа формы "Редактировать профиль"
 //Выбор кнопки "редактирование"
 const editBtn = document.querySelector('.profile__edit-button');
 
 //Выбор popup окон
 const addCardPopup = document.querySelector('.popup_type_add-card');
 const editProfilePopup = document.querySelector('.popup_type_edit-profile');
-export const imgPopup = document.querySelector('.popup_type_img');
-export const popups = [addCardPopup, editProfilePopup, imgPopup];
+const imgPopup = document.querySelector('.popup_type_img');
 
 //Выбор кнопок закрытия попап окон
 const addCardCloseButton = addCardPopup.querySelector('.popup__close-button');
 const editProfileCloseButton = editProfilePopup.querySelector('.popup__close-button');
 const imgPopupCloseButton = imgPopup.querySelector('.popup__close-button');
-
-//Выбор полей ввода
-const popupProfileName = document.querySelector('.popup__profile-name');
-const popupProfileDescription = document.querySelector('.popup__profile-description');
-
-//Получение секции с карточками мест
-const places = document.querySelector('.elements');
-
-//Выбор элементов имя профиля и описание профиля 
-const profileName = document.querySelector('.profile__name'); 
-const profileDescription = document.querySelector('.profile__description');
-
-//Выбор форм
-const profileForm = document.querySelector('.popup_type_edit-profile').querySelector('.popup__container');
-const placeForm = document.querySelector('.popup_type_add-card').querySelector('.popup__container');
-export const forms = [profileForm,placeForm];
-
-//выбор кнопки "добавить место"
-const addPlaceBtn = document.querySelector('.profile__add-button');
-
-
 
 addCardCloseButton.addEventListener('click',() => closePopup(addCardPopup));
 
@@ -54,6 +34,9 @@ imgPopupCloseButton.addEventListener('click', function() {
   closePopup(imgPopup);
 })
 
+//Выбор полей ввода
+const popupProfileName = document.querySelector('.popup__profile-name');
+const popupProfileDescription = document.querySelector('.popup__profile-description');
 
 
 //Добавление реакции на нажатие кнопки "редактирование"
@@ -63,11 +46,26 @@ editBtn.addEventListener('click', function () {
   popupProfileDescription.value = profileDescription.textContent;
 });
 
+//Выбор кнопки "сохранить"
+const saveBtn = document.querySelector('.popup__save-button');
+
+//Выбор элементов имя профиля и описание профиля 
+const profileName = document.querySelector('.profile__name'); 
+const profileDescription = document.querySelector('.profile__description');
+
+//Выбор форм
+const profileForm = document.querySelector('.popup_type_edit-profile').querySelector('.popup__container');
+const placeForm = document.querySelector('.popup_type_add-card').querySelector('.popup__container');
+
 
 profileForm.addEventListener('submit', savePopupProfile);
 
+
+//Получение секции с карточками мест
+const places = document.querySelector('.elements');
+
 //Добавление реакции на нажатие кнопки сохранить
-export function savePopupProfile(event) {
+function savePopupProfile(event) {
   event.preventDefault();
   profileName.textContent = popupProfileName.value;
   profileDescription.textContent = popupProfileDescription.value;
@@ -80,6 +78,15 @@ initialCards.forEach(function (item) {
   places.append(card);
 })
 
+
+//Работа формы "Новое место"
+//выбор кнопки "добавить место"
+const addPlaceBtn = document.querySelector('.profile__add-button');
+
+
+//Выбор полей ввода
+const newPlaceFormName = document.querySelector('.popup__place-name');
+const newPlaceFormDescription = document.querySelector('.popup__place-link');
 
 //Добавление реакции на нажатие кнопки "Добавить место"
 addPlaceBtn.addEventListener('click', function () {
@@ -114,22 +121,16 @@ enableValidation({
   errorClass: 'popup__error_active'
 }); 
 
-/*document.addEventListener('keydown', function (evt) {
+document.addEventListener('keydown', function (evt) {
   if(evt.keyCode===27){
     closeAllPopup();
   }
-});*/
+});
 
-export function closePopupEsc(evt){
-  if(evt.keyCode===27){
-    closeAllPopup();
-  }
-}
-
-export function closePopupMC(evt){
+document.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('popup')){
     closeAllPopup();
   }
-}
+});
 
 
