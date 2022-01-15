@@ -64,3 +64,13 @@ export function requestPutLike(cardId) {
         }
     });
 }
+
+export function requestDeleteLike(cardId) {
+    return fetch(`https://nomoreparties.co/v1/${groupID}/cards/likes/${cardId}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        }
+    });
+}
