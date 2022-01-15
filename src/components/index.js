@@ -12,6 +12,8 @@ import { loadCardsData } from './api.js';
 import { sendUserInfo } from './api.js';
 import { requestNewCard } from './api.js';
 
+//Имя пользователя
+export let userName = '';
 
 //Выбор кнопки "редактирование"
 const editBtn = document.querySelector('.profile__edit-button');
@@ -51,11 +53,12 @@ editProfilePopup.addEventListener('submit', savePopupProfile);
 
 
 //Получение секции с карточками мест
-const places = document.querySelector('.elements');
+export const places = document.querySelector('.elements');
 
 //Добавление реакции на нажатие кнопки сохранить
 function updateProfile(userData) {
-  profileName.textContent = userData.name;
+  userName = userData.name;
+  profileName.textContent = userName;
   profileDescription.textContent = userData.about;
   avatar.style.backgroundImage = `url(${userData.avatar})`;
 }
@@ -84,27 +87,29 @@ function saveNewPlaceForm(event) {
   const cardData = {};
   cardData.name = name.value;
   cardData.link = link.value;
-  const card = createPlaceCard(cardData);
-  places.prepend(card);
+  cardData.likes = [];
+  cardData.owner = {};
+  cardData.owner.name = userName;
+  
+  requestNewCard(cardData).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }).then(data => {
+    cardData._id = data._id;
+    createPlaceCard(cardData);
+  })
+  .catch(err => {
+    console.log(err);
+  })
+
   addCardForm.reset();
   addCardSaveBtn.setAttribute('disabled', 'disabled');
   addCardSaveBtn.classList.add('popup__save-button_disabled');
-  sendNewCard(cardData);
   closePopup(addCardPopup);
 }
 addCardPopup.addEventListener('submit', saveNewPlaceForm);
-
-function sendNewCard(data){
-  requestNewCard(data).then(res => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}).catch(err => {
-  console.log(err);
-})
-}
-
 
 
 
@@ -160,8 +165,7 @@ loadCardsData().then(res => {
   return Promise.reject(`Ошибка: ${res.status}`);
 }).then(data => {
   data.forEach(function (item) {
-    const card = createPlaceCard(item);
-    places.append(card);
+    createPlaceCard(item);
   })
 })
   .catch(err => {

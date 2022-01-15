@@ -1,7 +1,5 @@
 .elements__ico {
-  margin-right: 5px;
-  margin-bottom: 6px;
-  min-width: 22px;
+  width: 22px;
   height: 19px;
   background-image: url("../../../images/elements__ico.svg");
   background-size: cover;

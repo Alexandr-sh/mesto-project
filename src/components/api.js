@@ -44,3 +44,23 @@ export function requestNewCard(data) {
         })
     });
 }
+
+export function requestDelCard(id) {
+    return fetch(`https://nomoreparties.co/v1/${groupID}/cards/${id}`, {
+        method: 'DELETE',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        }
+    });
+}
+
+export function requestPutLike(cardId) {
+    return fetch(`https://nomoreparties.co/v1/${groupID}/cards/likes/${cardId}`, {
+        method: 'PUT',
+        headers: {
+            authorization: token,
+            'Content-Type': 'application/json'
+        }
+    });
+}
