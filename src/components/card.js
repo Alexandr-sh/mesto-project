@@ -1,5 +1,5 @@
 import { openPopup } from "./modal.js";
-import { imgPopup, userName, places } from "./index.js";
+import { imgPopup, userId, places } from "./index.js";
 import { requestDelCard, requestPutLike, loadCardsData, requestDeleteLike } from "./api.js";
 
 
@@ -15,13 +15,13 @@ export function createPlaceCard(cardData) {
   likesCount.textContent = cardData.likes.length;
   card._id = cardData._id;
 
-  if (cardData.owner.name != userName) {
+  if (cardData.owner._id != userId) {
     card.querySelector('.elements__del-ico').style.display = "none";
   }
 
   //Закрашивание кнопки лайк если мы на нее ранее лайкали
   cardData.likes.forEach(user => {
-    if (user.name === userName) {
+    if (user._id === userId) {
       likeBtn.classList.add('elements__ico_active');
     }
   })

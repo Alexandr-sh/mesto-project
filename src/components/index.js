@@ -14,6 +14,7 @@ import { requestNewCard, requestUpdateAvatar } from './api.js';
 
 //Имя пользователя
 export let userName = '';
+export let userId = ';'
 
 //Выбор кнопки "редактирование"
 const editBtn = document.querySelector('.profile__edit-button');
@@ -90,6 +91,8 @@ export const places = document.querySelector('.elements');
 
 //Добавление реакции на нажатие кнопки сохранить
 function updateProfile(userData) {
+  userId = userData._id;
+  console.log(userId);
   userName = userData.name;
   profileName.textContent = userName;
   profileDescription.textContent = userData.about;
@@ -129,12 +132,12 @@ function saveNewPlaceForm(event) {
     addCardForm.reset();
     evt.submitter.setAttribute('disabled', 'disabled');
     evt.submitter.classList.add('popup__save-button_disabled');
+    closePopup(addCardPopup);
   })
     .catch(err => {
       console.log(err);
     }).finally(() => {
       toggleSaveBtnCaption('Сохранить',event.submitter);
-      closePopup(addCardPopup);
     })
 }
 addCardPopup.addEventListener('submit', saveNewPlaceForm);
