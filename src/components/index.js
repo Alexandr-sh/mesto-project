@@ -130,8 +130,8 @@ function saveNewPlaceForm(event) {
   requestNewCard({ name: name.value, link: link.value }).then(data => {
     createPlaceCard(data);
     addCardForm.reset();
-    evt.submitter.setAttribute('disabled', 'disabled');
-    evt.submitter.classList.add('popup__save-button_disabled');
+    event.submitter.setAttribute('disabled', 'disabled');
+    event.submitter.classList.add('popup__save-button_disabled');
     closePopup(addCardPopup);
   })
     .catch(err => {
