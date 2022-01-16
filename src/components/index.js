@@ -22,6 +22,7 @@ const editBtn = document.querySelector('.profile__edit-button');
 const updateAvatarPopup = document.querySelector('.popup_type_update-avatar');
 const updateAvatarForm = updateAvatarPopup.querySelector('.popup__container');
 const updateAvatarSaveBtn = updateAvatarPopup.querySelector('.popup__save-button');
+const avatarLink = updateAvatarPopup.querySelector('.popup__text_type_avatar-link')
 
 //Выбор popup окон
 const addCardPopup = document.querySelector('.popup_type_add-card');
@@ -66,35 +67,23 @@ avatarOverlay.addEventListener('click', () => {
 //Обновление аватара
 updateAvatarPopup.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  toggleSaveBtnCaption('Сохранение...');
-  requestUpdateAvatar(updateAvatarPopup.querySelector('.popup__text_type_avatar-link').value)
-  .then(res => {
-    if (res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }).then(data => {
-    avatar.style.backgroundImage = `url(${data.avatar})`;
-    closePopup(updateAvatarPopup);
-    toggleSaveBtnCaption('Сохранить');
-  }).catch(err => {
-    console.log(err);
-  })
-  updateAvatarForm.reset();
-  updateAvatarSaveBtn.setAttribute('disabled', 'disabled');
-  updateAvatarSaveBtn.classList.add('popup__save-button_disabled');
+  toggleSaveBtnCaption('Сохранение...',evt.submitter);
+  requestUpdateAvatar(avatarLink.value)
+    .then(data => {
+      avatar.style.backgroundImage = `url(${data.avatar})`;
+      closePopup(updateAvatarPopup);
+      updateAvatarForm.reset();
+      updateAvatarSaveBtn.setAttribute('disabled', 'disabled');
+      updateAvatarSaveBtn.classList.add('popup__save-button_disabled');
+    }).catch(err => {
+      console.log(err);
+    }).finally(() => {
+      toggleSaveBtnCaption('Сохранить',evt.submitter);
+    })
 })
 
 
 editProfilePopup.addEventListener('submit', savePopupProfile);
-
-//Добавление реакции при наведении курсора на аватар
-avatar.addEventListener('mouseover', () => {
-  avatarOverlay.style.display = 'block';
-})
-avatar.addEventListener('mouseout', () => {
-  avatarOverlay.style.display = 'none';
-})
 
 //Получение секции с карточками мест
 export const places = document.querySelector('.elements');
@@ -109,10 +98,15 @@ function updateProfile(userData) {
 
 function savePopupProfile(event) {
   event.preventDefault();
-  profileName.textContent = popupProfileName.value;
-  profileDescription.textContent = popupProfileDescription.value;
-  toggleSaveBtnCaption("Сохранение...");
-  sendUserData({name:popupProfileName.value,about:popupProfileDescription.value})
+  toggleSaveBtnCaption("Сохранение...",event.submitter);
+  sendUserInfo({ name: popupProfileName.value, about: popupProfileDescription.value }).then(res => {
+    profileName.textContent = popupProfileName.value;
+    profileDescription.textContent = popupProfileDescription.value;
+    closePopup(editProfilePopup);
+    toggleSaveBtnCaption("Сохранить",event.submitter);
+  }).catch(err => {
+    console.log(err);
+  })
 }
 
 //Работа формы "Новое место"
@@ -128,32 +122,19 @@ addPlaceBtn.addEventListener('click', function () {
 //Добавление реакции на нажатие кнопки сохранить
 function saveNewPlaceForm(event) {
   event.preventDefault();
-  const cardData = {};
-  cardData.name = name.value;
-  cardData.link = link.value;
-  cardData.likes = [];
-  cardData.owner = {};
-  cardData.owner.name = userName;
-  
-  toggleSaveBtnCaption('Сохранение...');
-  requestNewCard(cardData).then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }).then(data => {
-    cardData._id = data._id;
-    createPlaceCard(cardData);
-    toggleSaveBtnCaption('Сохранить');
+  toggleSaveBtnCaption('Сохранение...',event.submitter);
+  requestNewCard({ name: name.value, link: link.value }).then(data => {
+    createPlaceCard(data);
+    addCardForm.reset();
+    addCardSaveBtn.setAttribute('disabled', 'disabled');
+    addCardSaveBtn.classList.add('popup__save-button_disabled');
+    closePopup(addCardPopup);
   })
-  .catch(err => {
-    console.log(err);
-  })
-
-  addCardForm.reset();
-  addCardSaveBtn.setAttribute('disabled', 'disabled');
-  addCardSaveBtn.classList.add('popup__save-button_disabled');
-  closePopup(addCardPopup);
+    .catch(err => {
+      console.log(err);
+    }).finally(() => {
+      toggleSaveBtnCaption('Сохранить',event.submitter);
+    })
 }
 addCardPopup.addEventListener('submit', saveNewPlaceForm);
 
@@ -186,53 +167,17 @@ popups.forEach((popup) => {
   })
 })
 
-function getUserInfo() {
-  loadUserInfo().then(res => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }).then(data => {
-    updateProfile(data);
-  })
-    .catch(error => {
-      console.log(error);
-    })
-}
 
-getUserInfo();
-
-
-//Загрузка карточек с сервера
-loadCardsData().then(res => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка: ${res.status}`);
-}).then(data => {
-  data.forEach(function (item) {
+Promise.all([loadUserInfo(), loadCardsData()])
+.then(([userData, cards]) => {
+  updateProfile(userData);
+  cards.forEach(function (item) {
     createPlaceCard(item);
-  })
+  });
+}).catch(err => {
+  console.log(err);
 })
-  .catch(err => {
-    console.log(err);
-  })
 
-function sendUserData(data){
-  sendUserInfo(data).then(res => {
-    if (res.ok) {
-      closePopup(editProfilePopup);
-      toggleSaveBtnCaption("Сохранить");
-      return;
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  }).catch(err => {
-    console.log(err);
-  })
-}
-
-function toggleSaveBtnCaption(caption){
-  document.querySelectorAll('.popup__save-button').forEach(btn => {
-    btn.value = caption;
-  })
+function toggleSaveBtnCaption(caption,btn) {
+  btn.value = caption;
 }
