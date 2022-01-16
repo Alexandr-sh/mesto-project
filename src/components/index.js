@@ -73,8 +73,8 @@ updateAvatarPopup.addEventListener('submit', (evt) => {
       avatar.style.backgroundImage = `url(${data.avatar})`;
       closePopup(updateAvatarPopup);
       updateAvatarForm.reset();
-      updateAvatarSaveBtn.setAttribute('disabled', 'disabled');
-      updateAvatarSaveBtn.classList.add('popup__save-button_disabled');
+      evt.submitter.setAttribute('disabled', 'disabled');
+      evt.submitter.classList.add('popup__save-button_disabled');
     }).catch(err => {
       console.log(err);
     }).finally(() => {
@@ -103,9 +103,10 @@ function savePopupProfile(event) {
     profileName.textContent = popupProfileName.value;
     profileDescription.textContent = popupProfileDescription.value;
     closePopup(editProfilePopup);
-    toggleSaveBtnCaption("Сохранить",event.submitter);
   }).catch(err => {
     console.log(err);
+  }).finally(() => {
+    toggleSaveBtnCaption("Сохранить",event.submitter);
   })
 }
 
@@ -126,14 +127,14 @@ function saveNewPlaceForm(event) {
   requestNewCard({ name: name.value, link: link.value }).then(data => {
     createPlaceCard(data);
     addCardForm.reset();
-    addCardSaveBtn.setAttribute('disabled', 'disabled');
-    addCardSaveBtn.classList.add('popup__save-button_disabled');
-    closePopup(addCardPopup);
+    evt.submitter.setAttribute('disabled', 'disabled');
+    evt.submitter.classList.add('popup__save-button_disabled');
   })
     .catch(err => {
       console.log(err);
     }).finally(() => {
       toggleSaveBtnCaption('Сохранить',event.submitter);
+      closePopup(addCardPopup);
     })
 }
 addCardPopup.addEventListener('submit', saveNewPlaceForm);
